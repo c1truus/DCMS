@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>styles/styles.qss</file>
+        <file>styles/light-theme.qss</file>
+        <file>styles/dark-theme.qss</file>
+        <file>styles/base-theme.qss</file>
+        <file>resources/icon.png</file>
+        <file>resources/logo.png</file>
+        <file>resources/loading.gif</file>
+        <file>configs/config.txt</file>
+    </qresource>
+</RCC>

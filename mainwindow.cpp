@@ -1,10 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QMessageBox>
 #include "sessionmanager.h"
+#include "debugutils.h"
+#include "config.h"
+#include <QMessageBox>
 #include <QMouseEvent>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QListWidget>
+#include <QDockWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -12,25 +16,35 @@ MainWindow::MainWindow(QWidget *parent)
     socket = new QTcpSocket(this);
     connect(socket, &QTcpSocket::readyRead, this, &MainWindow::readServerResponse);
     setupShortcuts();
+    loadStylesheet();
     QString user = SessionManager::instance().getUsername();
     QString token = SessionManager::instance().getSessionToken();
-    qDebug() << "Current User:" << user;
-    qDebug() << "Session Token:" << token;
-
+    bich("Current user: " + user);
+    bich("Session Token: " + token);
     // Ensure the ToolButton resizes dynamically based on the username
     ui->toolButton->setText(user);
     ui->toolButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+
+    QDockWidget *sidebar = new QDockWidget("Menu", this);
+    sidebar->setWidget(new QListWidget);
+    addDockWidget(Qt::LeftDockWidgetArea, sidebar);
 }
 
 MainWindow::~MainWindow() {
     delete ui;
 }
 
+// QString IPAddress = "10.7.132.172";
+
 void MainWindow::initWindow(QString sessionUser, QString sessionToken) {
     if (socket->state() != QAbstractSocket::ConnectedState) {
-        socket->connectToHost("10.194.50.223", 12345); // BIT
-        // socket->connectToHost("192.168.1.96", 12345); // USTB
+        QMap<QString, QString> config = loadConfig("/home/ubuntu/Documents/DCMS-versions/DCMS-v0b/configs/config.txt");
+        QString ip = config.value("host", "127.0.0.1");
+        QString portStr = config.value("port", "12345");
+        quint16 port = portStr.toUShort();
 
+        socket->connectToHost(ip, port);
+        // socket->connectToHost(IPAddress, 12345);
     }
 
     if (socket->waitForConnected(3000)) {
@@ -43,7 +57,7 @@ void MainWindow::initWindow(QString sessionUser, QString sessionToken) {
         QMessageBox::critical(this, "Error", "Failed to connect to server!");
     }
     ui->userInfoPopup->hide();
-    qDebug() << "Main window initialized";
+    bich("main window initiliazed");
 }
 
 void MainWindow::readServerResponse() {
@@ -56,7 +70,7 @@ void MainWindow::readServerResponse() {
 
         if (!dentistInfo.isEmpty()) {
             ui->toolButton->setText(dentistInfo.at(2)); // Name as button text
-            qDebug() << "Dentist Info: " << dentistInfo.join(", ");
+            bich("Dentist info: " + dentistInfo.join(", "));
             fillInfoTable(dentistInfo);
         }
     } else {
@@ -89,6 +103,15 @@ void MainWindow::on_toolButton_clicked() {
     ui->userInfoPopup->show();
 }
 
+void MainWindow::loadStylesheet() {
+    QFile file(":/styles/styles.qss");
+    if (file.open(QFile::ReadOnly)) {
+        QString styleSheet = QLatin1String(file.readAll());
+        qApp->setStyleSheet(styleSheet);
+        bich("QSS opened");
+    }
+}
+
 
 void MainWindow::on_editInfoButton_clicked(){
     this->close();
@@ -117,6 +140,9 @@ void MainWindow::setupShortcuts() {
     // Ctrl + , to open Settings
     QShortcut *openSettingsShortcut = new QShortcut(QKeySequence("Ctrl+,"), this);
     connect(openSettingsShortcut, &QShortcut::activated, this, &MainWindow::openSettings);
+
+    QShortcut *reloadShortcut = new QShortcut(QKeySequence("Ctrl+R"), this);
+    connect(reloadShortcut, &QShortcut::activated, this, &MainWindow::loadStylesheet);
 }
 
 // Function to close the newest (topmost) window

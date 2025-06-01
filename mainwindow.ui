@@ -192,6 +192,55 @@
      </item>
     </layout>
    </widget>
+   <widget class="QTabWidget" name="Tab2">
+    <property name="geometry">
+     <rect>
+      <x>456</x>
+      <y>210</y>
+      <width>271</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>88</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Tab1</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>88</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>tab2</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

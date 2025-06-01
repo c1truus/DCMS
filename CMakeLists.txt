@@ -27,6 +27,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         registerdialog.h registerdialog.cpp registerdialog.ui
         sessionmanager.h
         settingswindow.h settingswindow.cpp settingswindow.ui
+        debugutils.h debugutils.cpp
+        idunno.qrc
+        splashscreen.h splashscreen.cpp
+        config.h config.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET DCMS-v0b APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

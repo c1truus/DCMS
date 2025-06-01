@@ -17,9 +17,8 @@ void RegisterDialog::on_buttonBox_accepted()
 {
     QString dentist_name = ui->dentistNameLineEdit->text();
     QString dentist_birthdate = ui->dentistBirthdateEdit->text();
-
-    qDebug() << "Dentist name is: " + dentist_name;
-    qDebug() << dentist_birthdate;
+    bich("Dentist name is: " + dentist_name);
+    bich("Dentist BD is: " + dentist_birthdate);
 }
 
 

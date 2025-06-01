@@ -1,6 +1,6 @@
 #include "settingswindow.h"
 #include "ui_settingswindow.h"
-
+#include "debugutils.h"
 SettingsWindow::SettingsWindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::SettingsWindow)
@@ -11,4 +11,5 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 SettingsWindow::~SettingsWindow()
 {
     delete ui;
+    bich("Hello, your're in Settings");
 }

@@ -1,6 +1,7 @@
 #ifndef REGISTERDIALOG_H
 #define REGISTERDIALOG_H
 
+#include "debugutils.h"
 #include <QDialog>
 
 namespace Ui {

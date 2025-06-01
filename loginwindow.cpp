@@ -1,9 +1,8 @@
 #include "loginwindow.h"
-#include "./ui_loginwindow.h"
-
 #include "sessionmanager.h"
-
+#include "./ui_loginwindow.h"
 #include "QMessageBox"
+#include "config.h"
 LoginWindow::LoginWindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::LoginWindow)
@@ -18,7 +17,7 @@ LoginWindow::~LoginWindow()
 {
     delete ui;
 }
-
+// QString IPAddr = "10.7.132.172";
 QString sessionToken;
 QString sessionUser;
 
@@ -38,10 +37,9 @@ void LoginWindow::readServerResponse() {
         // qDebug() << "Session token received:" << sessionToken;
     } else {
         QMessageBox::critical(this, "Error", "Invalid credentials!");
-        qDebug() << "Login failed:" << obj["message"].toString();
+        bich("Login failed: " + obj["message"].toString());
     }
 }
-
 
 
 void LoginWindow::on_loginButton_clicked() {
@@ -52,11 +50,13 @@ void LoginWindow::on_loginButton_clicked() {
         QMessageBox::warning(this, "Warning", "Username and password cannot be empty!");
         return;
     }
+    QMap<QString, QString> config = loadConfig("/home/ubuntu/Documents/DCMS-versions/DCMS-v0b/configs/config.txt");
+    QString ip = config.value("host", "127.0.0.1");
+    QString portStr = config.value("port", "12345");
+    quint16 port = portStr.toUShort();
 
-    socket->connectToHost("10.194.50.223", 12345); //BIT
-    // socket->connectToHost("10.7.22.194",12345); //PKU
-    // socket->connectToHost("192.168.1.96",12345); //USTB
-
+    socket->connectToHost(ip, port);
+    // socket->connectToHost(IPAddr,12345); //
     if (socket->waitForConnected(3000)) {
         QString data = command + "," + username + "," + password;
         socket->write(data.toUtf8());
@@ -68,7 +68,7 @@ void LoginWindow::on_loginButton_clicked() {
 
 void LoginWindow::on_registerButton_clicked()
 {
-    qDebug() << "New user detected";
+    bich("New user detected");
     registerDialog = new RegisterDialog();
     registerDialog->show();
     this->close();

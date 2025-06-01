@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
 #include <QTcpSocket>
 #include <QObject>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QFile>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -22,6 +23,7 @@ public:
     void setupShortcuts();
     void closeNewestWindow();
     void openSettings();
+    void loadStylesheet();
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 
