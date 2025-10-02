@@ -6,31 +6,38 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/ui")
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Include directories for headers
+include_directories(inc)
+include_directories(ui)
+
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network)
 
 set(PROJECT_SOURCES
-        main.cpp
-        loginwindow.cpp
-        loginwindow.h
-        loginwindow.ui
+        src/main.cpp
+        src/loginwindow.cpp
+        inc/loginwindow.h
+        ui/loginwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(DCMS-v0b
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        mainwindow.h mainwindow.cpp mainwindow.ui
-        registerdialog.h registerdialog.cpp registerdialog.ui
-        sessionmanager.h
-        settingswindow.h settingswindow.cpp settingswindow.ui
-        debugutils.h debugutils.cpp
-        idunno.qrc
-        splashscreen.h splashscreen.cpp
-        config.h config.cpp
+        inc/mainwindow.h src/mainwindow.cpp ui/mainwindow.ui
+        inc/registerdialog.h src/registerdialog.cpp ui/registerdialog.ui
+        inc/sessionmanager.h
+        inc/settingswindow.h src/settingswindow.cpp ui/settingswindow.ui
+        inc/debugutils.h src/debugutils.cpp
+        resources/idunno.qrc
+        inc/splashscreen.h src/splashscreen.cpp
+        inc/config.h src/config.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET DCMS-v0b APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

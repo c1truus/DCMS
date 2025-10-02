@@ -1,7 +1,4 @@
 # Qt build files
-*.pro.user
-*.pro.user.*
-*.pro~
 *.o
 *.obj
 *.so
@@ -12,7 +9,7 @@
 *.sln
 *.vcxproj*
 *.DS_Store
-build-*/
+build*/
 debug/
 release/
 moc_*/
@@ -21,5 +18,4 @@ ui_*/
 *.qmlc
 *.qmake.stash
 CMakeLists.txt.user
-config.txt
-build/
+

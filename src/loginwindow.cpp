@@ -1,6 +1,6 @@
 #include "loginwindow.h"
 #include "sessionmanager.h"
-#include "./ui_loginwindow.h"
+#include "ui_loginwindow.h"
 #include "QMessageBox"
 #include "config.h"
 LoginWindow::LoginWindow(QWidget *parent)

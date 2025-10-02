@@ -7,8 +7,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SplashScreen splash;
-    splash.startAnimation();
+    //SplashScreen splash;
+    //splash.startAnimation();
     QFile styleFile(":/styles/styles.qss");
     styleFile.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(styleFile.readAll());
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     LoginWindow w;
     // w.show();
     QTimer::singleShot(5000, [&]() {
-        splash.stopAnimation();
+        //splash.stopAnimation();
         w.show();
     });
     return a.exec();
