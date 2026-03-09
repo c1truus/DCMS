@@ -50,7 +50,7 @@ void LoginWindow::on_loginButton_clicked() {
         QMessageBox::warning(this, "Warning", "Username and password cannot be empty!");
         return;
     }
-    QMap<QString, QString> config = loadConfig("/home/ubuntu/Documents/DCMS-versions/DCMS-v0b/configs/config.txt");
+    QMap<QString, QString> config = loadConfig("resources/configs/config.txt");
     QString ip = config.value("host", "127.0.0.1");
     QString portStr = config.value("port", "12345");
     quint16 port = portStr.toUShort();
